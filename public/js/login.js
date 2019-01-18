@@ -43,6 +43,7 @@ $(function () {
                 document.getElementById("user").disabled = false;
                 document.getElementById("group").disabled = false;
                 document.getElementById('login-error').innerHTML = ""
+                $('.modal').modal('hide');
             },
             error: function () {
                 document.getElementById('login-error').innerHTML =
@@ -114,5 +115,4 @@ $(function () {
             error: console.log('Issues-------|||||------')
         });
     });
-
 });

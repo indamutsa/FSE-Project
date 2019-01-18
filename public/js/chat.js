@@ -30,6 +30,9 @@ socket.on('connect', () => {
                 window.location.href = '/';
             }
         });
+
+        document.getElementById("user").disabled = true;
+        document.getElementById("group").disabled = true;
     });
 });
 

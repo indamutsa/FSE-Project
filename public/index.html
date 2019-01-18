@@ -6,8 +6,14 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" type="image/png" href="images/icons/chat-2-icon.png" />
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/css1/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/css1/style.css">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+	<!-- Bootstrap core CSS -->
+	<link href="./css/css2/bootstrap.min.css" rel="stylesheet">
+	<!-- Material Design Bootstrap -->
+	<link href="./css/css2/mdb.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -20,34 +26,160 @@
 						Join || Chat App
 					</span>
 				</div>
+				<div style="height:1%" class="text-center">
+					<a id="login" href="" class="btn btn-default btn-rounded " data-toggle="modal" data-target="#modalLRForm">Sign in
+						| Register</a>
+				</div>
 
 				<form class="login100-form" action="/chat.html">
-					<div class="wrap-input100 validate-input m-b-26">
+					<div id="userdiv" class="wrap-input100 validate-input m-b-26">
 						<span class="label-input100">Username</span>
-						<input class="input100" type="text" name="username" placeholder="Enter username" required>
+						<input id="user" class="input100" type="text" name="username" placeholder="Enter username" required>
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input m-b-18">
 						<span class="label-input100">Groupname</span>
-						<input class="input100" type="text" name="group_name" placeholder="Enter the group name" required>
+						<input id="group" class="input100" type="text" name="group_name" placeholder="Enter the group name" required>
 						<span class="focus-input100"></span>
 					</div>
 
-					<div class="container-login100-form-btn m-5">
+					<div class="container-login-btn text-center m-5">
 						<button class="login100-form-btn">
 							Join the Chat group
 						</button>
 					</div>
 				</form>
+				<div style="text-align: right; margin-right:20px; color: red;">
+					<a id="signout"><span>SIGN OUT</span></a>
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<script src="js/lib/jquery-3.3.1.min.js"></script>
-	<script src="js/lib/popper.min.js"></script>
-	<script src="js/lib/bootstrap.min.js"></script>
+	<!-- *******************  Sign-up and login ************************************ -->
 
+	<!--Modal: Login / Register Form-->
+
+	<div class="modal fade" id="modalLRForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog cascading-modal" role="document">
+			<!--Content-->
+			<div class="modal-content">
+
+				<!--Modal cascading tabs-->
+				<div class="modal-c-tabs">
+
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs md-tabs tabs-2 white darken-3" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link active" data-toggle="tab" href="#panel7" role="tab"><i class="fas fa-user mr-1"></i>
+								Login</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" href="#panel8" role="tab"><i class="fas fa-user-plus mr-1"></i>
+								Register</a>
+						</li>
+					</ul>
+
+					<!-- Tab panels -->
+					<div class="tab-content">
+
+						<!-- Login Panel -->
+						<div class="tab-pane fade in show active" id="panel7" role="tabpanel">
+							<form id="login-form">
+								<!--Body-->
+								<div class="modal-body mb-1">
+									<div class="md-form form-sm mb-5">
+										<i class="fas fa-user prefix"></i>
+										<input type="text" id="username-log" class="form-control form-control-sm validate">
+										<label data-error="wrong" data-success="right" for="username-log">Your username</label>
+									</div>
+
+									<div class="md-form form-sm mb-4">
+										<i class="fas fa-lock prefix"></i>
+										<input type="password" id="password-log" class="form-control form-control-sm validate">
+										<label data-error="wrong" data-success="right" for="password-log">Your password</label>
+									</div>
+								</div>
+								<div id="login-error" class="text-center"></div>
+
+								<div class="text-center form-sm mt-2">
+									<button id="signin" style="width:30%" class="btn btn-info">Sign in<i class="fas fa-sign-in ml-1"></i></button>
+								</div>
+							</form>
+							<!--Footer-->
+							<div class="modal-footer">
+								<button type="button" style="width:30%" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>
+							</div>
+
+						</div>
+
+						<!--/. Login panel -->
+
+						<!-- Sign-up panel -->
+						<div class="tab-pane fade" id="panel8" role="tabpanel">
+
+							<!--Body-->
+							<form id="signup-form">
+
+								<div class="modal-body">
+									<div class="md-form form-sm mb-5">
+										<i class="fas fa-user prefix"></i>
+										<input type="text" id="username-reg" class="form-control form-control-sm validate">
+										<label data-error="wrong" data-success="right" for="username-reg">Your username</label>
+									</div>
+
+									<div class="md-form form-sm mb-5">
+										<i class="fas fa-lock prefix"></i>
+										<input type="password" id="password-reg" class="form-control form-control-sm validate">
+										<label data-error="wrong" data-success="right" for="password-reg">Your password</label>
+									</div>
+
+									<div class="md-form form-sm mb-4">
+										<i class="fas fa-lock prefix"></i>
+										<input type="password" id="password-reg-rep" class="form-control form-control-sm validate">
+										<label data-error="wrong" data-success="right" for="password-reg-rep">Repeat password</label>
+									</div>
+
+									<div id="signup-error" class="text-center"></div>
+
+									<div class="text-center form-sm mt-2">
+										<button id="signup" style="width:30%" class="btn btn-info">Sign up <i class="fas fa-sign-in ml-1"></i></button>
+									</div>
+
+								</div>
+							</form>
+
+							<!--Footer-->
+							<div class="modal-footer">
+								<button type="button" style="width:30%" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+						<!--/ Sign-up panel -->
+					</div>
+
+				</div>
+			</div>
+			<!--/.Content-->
+		</div>
+	</div>
+
+	<!--Modal: Login / Register Form-->
+
+
+
+	<!-- ************************Signup and Login ******************************* -->
+
+	<!-- JQuery -->
+	<script type="text/javascript" src="./js/js/jquery.min.js"></script>
+	<!-- Bootstrap tooltips -->
+	<script type="text/javascript" src="./js/js/popper.min.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" src="./js/js/bootstrap.min.js"></script>
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" src="./js/js/mdb.min.js"></script>
+	<!-- Login script -->
+	<script type="text/javascript" src="js/login.js"></script>
 </body>
 
 </html>

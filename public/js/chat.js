@@ -1,12 +1,14 @@
-const socket = io();
+// const socket = io();
+var socket = io.connect('http://localhost:4600');
 var params = $.deparam(window.location.search);
+var feedback = document.getElementById('feedback');
 
 socket.on('connect', () => {
     console.log('Connected to server');
 
     socket.emit('join', params, function (err) {
         if (err) {
-            alert(err);
+            alert("Please SIGN IN and fill all the fields!");
             window.location.href = '/';
         }
         else {
@@ -32,8 +34,13 @@ socket.on('connect', () => {
 });
 
 
-socket.on('disconnect', () => {
-    console.log('Disconnected to server')
+message.addEventListener('keypress', function () {
+    socket.emit('typing', params.username);
+});
+
+socket.on('typing', function (data) {
+    feedback.innerHTML = '<p><em>' + data + ' is typing a message...</em></p>'
+    console.log('#######');
 });
 
 socket.on('updateUserList', function (users) {
@@ -51,22 +58,23 @@ socket.on('updateUserList', function (users) {
 socket.on('newMessage', (message) => {
 
     var formattedTime = moment(message.createdAt).format('h:mm a');
-
+    feedback.innerHTML = '';
     $(".messages").stop().animate({ scrollTop: $(".messages")[0].scrollHeight }, 1000);
 
     if (message.from === params.username) {
-        $('<li class="sent"><p> <b>' + message.from +
-            '</b>   <i style="color:#778899;">' + formattedTime + ' </i> <br/>' +
-            message.text + '</p></li>').appendTo($('.messages ul'));
+        $('<li class="sent"><p>' + message.from +
+            '<i style="color:#778899; ">  ' + formattedTime + ' </i> <br/> <em style="font-size: 12px;">' +
+            message.text + ' </em> </p></li>').appendTo($('.messages ul'));
     }
     else {
         $('<li class="replies"><p> <b>' + message.from +
-            '</b>   <i style="color:#778899;">' + formattedTime + ' </i> <br/>' +
-            message.text + '</p></li>').appendTo($('.messages ul'));
+            '<i style="color:#778899;">  ' + formattedTime + ' </i> <br/> <em style="font-size: 12px;">' +
+            message.text + '  </em> </p></li>').appendTo($('.messages ul'));
     }
+});
 
-
-
+socket.on('disconnect', () => {
+    console.log('Disconnected to server')
 });
 
 $('#message-form').on('submit', function (e) {

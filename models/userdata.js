@@ -1,39 +1,39 @@
 const mongoose = require('mongoose');
+require('mongoose-unique-validator');
 const Joi = require('joi');
-const jwt = require('jsonwebtoken');
 
-const userSchema = new mongoose.Schema({
+//Create a schema
+const userSChema = new mongoose.Schema({
+    id: {
+        type: String,
+        required: true
+    },
     name: {
         type: String,
         required: true,
-        minlength: 5,
+        minlength: 1,
         maxlength: 50
     },
-
-    password: {
+    group: {
         type: String,
         required: true,
-        minlength: 5,
-        maxlength: 1024
+        minlength: 1,
+        maxlength: 50
     }
 });
-
-userSchema.methods.generateAuthToken = function () {
-    const token = jwt.sign({ name: this.name }, 'mysecretkey');
-    return token;
-}
-//The model
-const User = mongoose.model('Users', userSchema);
 
 //Function to validate
 function validateUser(user) {
     let schema = {
         name: Joi.string().min(1).max(50).required(),
-        password: Joi.string().min(1).max(50).required()
+        group: Joi.string().min(1).max(50).required()
     };
+
     return Joi.validate(user, schema);
 }
 
+//The model
+const User = mongoose.model('User', userSChema);
 
 exports.User = User;
 exports.validate = validateUser;
